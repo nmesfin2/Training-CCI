@@ -6,6 +6,7 @@ public class StringInterviews {
 	
 	public static void main(String [] args) {
 		System.out.println(checkPermutation("acbaaa", "baacaa"));
+		System.out.println(urlify("Mr John Smith       ", 13));
 	}
 	
 	public static boolean isUnique(String str) {
@@ -65,6 +66,26 @@ public class StringInterviews {
 			hm.put(str2.charAt(i), hm.get(str2.charAt(i))- 1);
 		}
 		return true;
+	}
+	
+	public static char[] urlify(String s, int trueLength) {
+		int urlLength = trueLength;
+		
+		char [] a = s.toCharArray();
+		
+		for(int i = 0; i < urlLength; i++) {
+			if(a[i] == ' ') {
+				for(int j = urlLength - 1; j > i; j--) {
+					a[j+2] = a[j];
+				}
+				a[i]= '%';
+				a[i+1]='2';
+				a[i+2]='0';
+				urlLength = urlLength + 2;
+				i = i +2 ;
+			}
+		}
+		return a;
 	}
 
 }
