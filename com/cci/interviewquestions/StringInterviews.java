@@ -7,6 +7,7 @@ public class StringInterviews {
 	public static void main(String [] args) {
 		System.out.println(checkPermutation("acbaaa", "baacaa"));
 		System.out.println(urlify("Mr John Smith       ", 13));
+		System.out.println(palindromePermuation("Tact Coa"));
 	}
 	
 	public static boolean isUnique(String str) {
@@ -86,6 +87,39 @@ public class StringInterviews {
 			}
 		}
 		return a;
+	}
+	
+	
+	public static boolean palindromePermuation(String str) {
+		
+		str = str.toLowerCase();
+		
+		char[] strArray = str.toCharArray();
+		
+		int [] array = new int[128];
+		
+		int moreThanOneOdd = 0;
+		
+		for(Character c : strArray) {
+			if(c != ' ') {
+				 array[c - 'a']++;
+			}
+
+		}
+		
+		for(int i = 0; i < array.length; i ++) {
+			if(array[i]%2 != 0) {
+				moreThanOneOdd++;
+			}
+			
+			System.out.println(i + " : " + array[i]  );
+		}
+		
+		if(moreThanOneOdd > 1) {
+			return false;
+		}
+		
+		return true;
 	}
 
 }
