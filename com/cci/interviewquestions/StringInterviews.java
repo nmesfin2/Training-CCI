@@ -7,9 +7,33 @@ public class StringInterviews {
 	public static void main(String [] args) {
 		System.out.println(checkPermutation("acbaaa", "baacaa"));
 		System.out.println(urlify("Mr John Smith       ", 13));
-		System.out.println(palindromePermuation("Tact Coa"));
+//		System.out.println(palindromePermuation("Tact ddCoa"));
+//		System.out.println(oneAway("pale", "bake"));
+		
+		
+		String [][] matrix = { {"A", "B", "C", "D"}, {"X", "Y", "Z", "V"}, {"1", "2", "3", "4"}, {"5", "6", "7", "8"}};
+		
+		
+		printMatrix(matrix);
+		rotate90Matrix(matrix);
+		System.out.println();
+		printMatrix(matrix);
+		System.out.println();
+		
+		roateMinus90Matrix(matrix);
+		printMatrix(matrix);
+		
 	}
 	
+	
+	public static void printMatrix(String[][] matrix) {
+		for(int i = 0; i < matrix.length; i++) {
+			for(int j = 0; j < matrix[i].length; j++) {
+				System.out.print(matrix[i][j] + ", ");
+			}
+		}
+		
+	}
 	public static boolean isUnique(String str) {
 		//method one o(ij)
 //		for(int i = 0; i < str.length(); i++) {
@@ -112,7 +136,7 @@ public class StringInterviews {
 				moreThanOneOdd++;
 			}
 			
-			System.out.println(i + " : " + array[i]  );
+		
 		}
 		
 		if(moreThanOneOdd > 1) {
@@ -120,6 +144,123 @@ public class StringInterviews {
 		}
 		
 		return true;
+	}
+	
+	
+	// one away
+	public static boolean  oneAway(String str1, String str2) {
+		
+		char [] str1Chars = str1.toCharArray();
+		char [] str2Chars = str2.toCharArray();
+		
+		int [] array = new int [128];
+		int moreThanTwo = 0;
+		
+		for(Character c: str1Chars) {
+			array[c - 'a']++;
+		}
+		
+		for(Character c: str2Chars) {
+			array[c - 'a']--;
+		}
+		
+		for(int i = 0; i < array.length; i++) {
+			if(array[i] != 0) {
+				moreThanTwo++;
+			}
+			System.out.println(i + " : " + array[i]  );
+		}
+		
+		if(moreThanTwo > 2) {
+			return false;
+		}
+		return true;
+	}
+	
+	
+	public static void rotate90Matrix(String [][] matrix) {
+		
+		
+		int n = matrix.length;
+		for(int layer = 0; layer < n/2; layer++) {
+			int first = layer;
+			int last = n - 1 - layer;
+			
+			for(int i = first; i < last; i++) {
+				int offset = i - first;
+				
+				String top = matrix[first][i];
+				
+				//left to top
+				matrix[first][i] = matrix[last - offset][first];
+				
+				//bottom to left
+				matrix[last-offset][first]=matrix[last][last-offset];
+				
+				// right to bottom
+				matrix[last][last-offset] = matrix[i][last];
+				
+				// top to right
+				matrix[i][last] = top;
+				
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public static void roateMinus90Matrix(String [][] matrix) {
+		
+		int n = matrix.length;
+		
+		for(int layer = 0; layer < n/2; layer++) {
+			int first = layer;
+			int last = n - 1 - layer;
+			
+			for(int i = first; i < last; i++) {
+				int offset = i - first;
+				
+				String top = matrix[first][i];
+				
+				//right to top				
+				matrix[first][i] = matrix[i][last];
+				
+				// bottom to right;				
+				matrix[i][last] = matrix[last][last-offset];
+				
+				// left to bottom
+				matrix[last][last-offset] = matrix[last-offset][first];
+				
+				// top to left
+				matrix[last-offset][first] = top;
+			}
+			
+		}
+		
 	}
 
 }
