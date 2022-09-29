@@ -11,12 +11,14 @@ public class LInkeListQuestions {
 	
 	public static void main (String [] args) {
 		LInkeListQuestions llq = new LInkeListQuestions();
-		llq.linkedList.add('a');
-		llq.linkedList.add('b');
-		llq.linkedList.add('c');
-		llq.linkedList.add('a');
-		llq.linkedList.add('c');
-		llq.removeDubs(llq.linkedList);
+		llq.linkedList.add(1);
+		llq.linkedList.add(2);
+		llq.linkedList.add(3);
+		llq.linkedList.add(4);
+		llq.linkedList.add(5);
+		//llq.removeDubs(llq.linkedList);
+		
+		System.out.println(llq.returnKthToLast(llq.linkedList, 5));
 		
 		Node curr = llq.linkedList.head;
 		while(curr!= null) {
@@ -30,7 +32,24 @@ public class LInkeListQuestions {
 		this.linkedList = new LinkedList();
 	}
 	
-	
+	public int returnKthToLast(LinkedList ll, int k) {
+		int size = 0;
+		Node curr = ll.head;
+		while(curr != null) {
+			size++;
+			curr = curr.next;
+		}
+		
+		int counter = 0;
+		curr = ll.head;
+		while((size - counter) != k) {
+			curr = curr.next;
+			counter++;
+		}
+		
+		
+		return curr.value;
+	}
 	public boolean removeDubs(LinkedList ll) {
 		
 		Set<Integer> s = new HashSet<Integer>();
