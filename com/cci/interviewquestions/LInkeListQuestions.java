@@ -6,21 +6,71 @@ import java.util.Set;
 
 
 public class LInkeListQuestions {
-	private   LinkedList linkedList;
+
+	Node head;
+	
+	LInkeListQuestions(){
+		//Node n = new Node();
+		this.head = null;
+	}
+	
+	void add(int val) {
+		if(this.head == null) {
+			Node n = new Node(val);
+			this.head = n;
+		}else {
+			Node runner = this.head;
+			while(runner.next != null) {
+				runner = runner.next;
+			}
+			
+			Node n = new Node(val);
+			runner.next= n;
+			
+		}
+	}
+	
+	 boolean remove(int v) {
+		if(this.head == null) {
+			return false;
+		}else if(this.head.next == null){
+			this.head = null;
+			return true;
+		}else {
+			Node curr = this.head;
+			while(curr.next != null) {
+				if(curr.next.value == v) {
+
+					if(curr.next.next != null) {
+						Node temp = curr.next;
+						curr.next = curr.next.next;
+						temp = null;
+					}
+				}
+				curr = curr.next;
+			}
+			return true;
+		}
+	}
+	
 	
 	
 	public static void main (String [] args) {
 		LInkeListQuestions llq = new LInkeListQuestions();
-		llq.linkedList.add(1);
-		llq.linkedList.add(2);
-		llq.linkedList.add(3);
-		llq.linkedList.add(4);
-		llq.linkedList.add(5);
+		llq.add(1);
+		llq.add(2);
+		llq.add(3);
+		llq.add(4);
+		llq.add(5);
 		//llq.removeDubs(llq.linkedList);
 		
-		System.out.println(llq.returnKthToLast(llq.linkedList, 5));
+		//return kth
+		//System.out.println(llq.returnKthToLast(llq.linkedList, 5));
 		
-		Node curr = llq.linkedList.head;
+		// remove middle node
+		llq.deleteMiddleNode(llq, 5);
+		
+		Node curr = llq.head;
 		while(curr!= null) {
 			System.out.println(curr.value);
 			curr = curr.next;
@@ -28,11 +78,35 @@ public class LInkeListQuestions {
 		
 	}
 	
-	LInkeListQuestions(){
-		this.linkedList = new LinkedList();
+	
+	//delete middle node
+	public void deleteMiddleNode(LInkeListQuestions ll, int c) {
+		
+		if(ll.head.value == c) {
+			if(ll.head.next != null) {
+				ll.head = ll.head.next;
+			}else {
+				ll.head = null;
+			}
+		}else {
+			Node curr = ll.head;
+			Node prev = ll.head;
+			while(curr != null) {
+				if(curr.value != c) {
+					prev = curr;
+					curr =curr.next;
+				}else {
+					prev.next = curr.next;
+					curr = prev;
+				}
+			}
+		}
+		
+		
 	}
 	
-	public int returnKthToLast(LinkedList ll, int k) {
+	// return kth to last element
+	public int returnKthToLast(LInkeListQuestions ll, int k) {
 		int size = 0;
 		Node curr = ll.head;
 		while(curr != null) {
@@ -50,7 +124,7 @@ public class LInkeListQuestions {
 		
 		return curr.value;
 	}
-	public boolean removeDubs(LinkedList ll) {
+	public boolean removeDubs(LInkeListQuestions ll) {
 		
 		Set<Integer> s = new HashSet<Integer>();
 		if(ll.head == null) {
@@ -72,7 +146,7 @@ public class LInkeListQuestions {
 		}
 	}
 	
-	class Node{
+	public class Node{
 		int value;
 		Node next;
 		Node () {
@@ -85,55 +159,4 @@ public class LInkeListQuestions {
 			next = null;
 		}
 	}
-	
-	 class LinkedList {
-		Node head;
-		
-		LinkedList(){
-			//Node n = new Node();
-			this.head = null;
-		}
-		
-		void add(int val) {
-			if(this.head == null) {
-				Node n = new Node(val);
-				this.head = n;
-			}else {
-				Node runner = this.head;
-				while(runner.next != null) {
-					runner = runner.next;
-				}
-				
-				Node n = new Node(val);
-				runner.next= n;
-				
-			}
-		}
-		
-		 boolean remove(int v) {
-			if(this.head == null) {
-				return false;
-			}else if(this.head.next == null){
-				this.head = null;
-				return true;
-			}else {
-				Node curr = this.head;
-				while(curr.next != null) {
-					if(curr.next.value == v) {
-
-						if(curr.next.next != null) {
-							Node temp = curr.next;
-							curr.next = curr.next.next;
-							temp = null;
-						}
-					}
-					curr = curr.next;
-				}
-				return true;
-			}
-		}
-		
-	}
-	
-	
 }
