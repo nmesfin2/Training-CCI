@@ -57,12 +57,14 @@ public class LInkeListQuestions {
 	
 	public static void main (String [] args) {
 		LInkeListQuestions llq = new LInkeListQuestions();
-		llq.add(55);
-		llq.add(23);
-		llq.add(32);
-		llq.add(4);
-		llq.add(2);
-		llq.add(3);
+		LInkeListQuestions llq2 = new LInkeListQuestions();
+		llq.add(7);
+		llq.add(1);
+		llq.add(6);
+		llq2.add(5);
+		llq2.add(9);
+		llq2.add(2);
+		llq2.add(8);
 		//llq.removeDubs(llq.linkedList);
 		
 		//return kth
@@ -72,14 +74,59 @@ public class LInkeListQuestions {
 		//llq.deleteMiddleNode(llq, 4);
 		
 		// partition 
-		Node h = llq.partitionOnPivot(llq.head, 32);
+		// Node h = llq.partitionOnPivot(llq.head, 32);
 		
-		Node curr = h;
+		//sum list
+		Node n = llq.sumList(llq.head, llq2.head);
+		
+		Node curr = n;
 		while(curr!= null) {
 			System.out.println(curr.value);
 			curr = curr.next;
 		}
 		
+	}
+	
+	//sum list
+	public Node sumList(Node first, Node second) {
+		Node returnNode = null;
+		Node head = null;
+		int tenthDigit = 0;
+		
+		while(first != null || second != null) {
+			int tempsum = 0;
+			if(first!=null && second !=null) {
+				tempsum = first.value + second.value + tenthDigit;
+				first = first.next;
+				second = second.next;
+			}else if(first != null){
+				tempsum = first.value + tenthDigit;
+				first = first.next;
+				
+			}else if(second != null) {
+				tempsum = second.value + tenthDigit;
+				second = second.next;
+			}
+			
+			if(tempsum > 10) {
+				tenthDigit = tempsum / 10;
+				tempsum = tempsum%10;			
+			}else {
+				tenthDigit = 0;
+			}
+			Node n = new Node(tempsum);
+			if(returnNode == null) {
+				returnNode = n;
+				head = returnNode;
+				
+			}else {
+				returnNode.next = n;
+				returnNode = returnNode.next;
+			}
+			
+		}
+		
+		return head;
 	}
 	
 	//partition my approach
