@@ -57,20 +57,24 @@ public class LInkeListQuestions {
 	
 	public static void main (String [] args) {
 		LInkeListQuestions llq = new LInkeListQuestions();
-		llq.add(1);
+		llq.add(55);
+		llq.add(23);
+		llq.add(32);
+		llq.add(4);
 		llq.add(2);
 		llq.add(3);
-		llq.add(4);
-		llq.add(5);
 		//llq.removeDubs(llq.linkedList);
 		
 		//return kth
 		//System.out.println(llq.returnKthToLast(llq.linkedList, 5));
 		
 		// remove middle node
-		llq.deleteMiddleNode(llq, 5);
+		//llq.deleteMiddleNode(llq, 4);
 		
-		Node curr = llq.head;
+		// partition 
+		Node h = llq.partitionOnPivot(llq.head, 32);
+		
+		Node curr = h;
 		while(curr!= null) {
 			System.out.println(curr.value);
 			curr = curr.next;
@@ -78,7 +82,56 @@ public class LInkeListQuestions {
 		
 	}
 	
-	
+	//partition my approach
+	public Node partitionOnPivot(Node head, int c) {
+		Node prev = head;
+		Node curr = head;
+		
+		
+		while(curr.next != null) {
+			if(curr.next.value >= c) {
+				prev = curr;
+				curr = curr.next;
+				while(curr.next != null) {
+					if(curr.next.value < c) {
+						Node t = prev.next;
+						Node l = curr.next.next;
+						prev.next = curr.next;
+						prev.next.next = t;
+						curr.next = l;
+						curr = prev;
+						break;
+						
+					}else {
+						curr = curr.next;
+					}
+				}
+				if(curr.next == null) {
+					break;
+				}else {
+					curr = curr.next;
+				}
+				
+			}else {
+				Node t = prev.next;
+				prev.next = curr.next;
+				curr.next = t;
+				prev = curr;
+				curr = curr.next;
+				
+			}
+		}
+		
+		if(head.value >= c) {
+			Node t = head;
+			head = head.next;
+			t.next = null;
+			curr.next = t;
+		}
+		
+		return head;
+		
+	}
 	//delete middle node
 	public void deleteMiddleNode(LInkeListQuestions ll, int c) {
 		
