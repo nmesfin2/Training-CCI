@@ -81,15 +81,17 @@ public class Tree {
 		t.add(t.getRoot(), 34);
 		t.add(t.getRoot(), 8);
 		
-		System.out.println(" in order ---- ");
+		System.out.println("in order ---- ");
 		t.inOrder(t.getRoot());
+		System.out.println();
 		
 		System.out.println();
-		System.out.println(" pre order ---- ");
+		System.out.println("pre order ---- ");
 		t.preOrder(t.getRoot());
 		
 		System.out.println();
-		System.out.println(" post order ---- ");
+		System.out.println();
+		System.out.println("post order ---- ");
 		t.postOrder(t.getRoot());
 	}
 }
