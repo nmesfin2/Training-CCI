@@ -5,81 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MyGraph {
-	class GraphNode{
-		private int data;
-		private boolean isVisited;
-		private int edge;
-		
-		public GraphNode(int val) {
-			// TODO Auto-generated constructor stub
-			this.data = val;
-			this.isVisited = false;
-			this.edge = 0;
-		}
-
-		public int getData() {
-			return data;
-		}
-
-		public void setData(int data) {
-			this.data = data;
-		}
-
-		public boolean isVisited() {
-			return isVisited;
-		}
-
-		public void setVisited(boolean isVisited) {
-			this.isVisited = isVisited;
-		}
-
-		public int getEdge() {
-			return edge;
-		}
-
-		public void setEdge(int edge) {
-			this.edge = edge;
-		}
-
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + getEnclosingInstance().hashCode();
-			result = prime * result + data;
-			result = prime * result + edge;
-			result = prime * result + (isVisited ? 1231 : 1237);
-			return result;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			GraphNode other = (GraphNode) obj;
-			if (!getEnclosingInstance().equals(other.getEnclosingInstance()))
-				return false;
-			if (data != other.data)
-				return false;
-			if (edge != other.edge)
-				return false;
-			if (isVisited != other.isVisited)
-				return false;
-			return true;
-		}
-
-		private MyGraph getEnclosingInstance() {
-			return MyGraph.this;
-		}
-		
-		
-		
-	}
-
 	private Map<GraphNode, ArrayList<GraphNode>> myGraph;
 	
 	public MyGraph() {
@@ -114,6 +39,20 @@ public class MyGraph {
 		myGraph.get(fNode).add(sNode);
 	}
 	
+	public void dfsSearch(GraphNode gn) {
+		if(gn == null) {
+			return;
+		}
+		
+		System.out.print(gn.getData() + " ");
+		gn.setVisited(true);
+		
+		for(GraphNode g : this.getMyGraph().get(gn)) {
+			if(!g.isVisited()) {
+				dfsSearch(g);
+			}
+		}
+	}
 	public static void main (String [] args) {
 		MyGraph mg = new MyGraph();
 		mg.addGraphNode(1);
@@ -136,11 +75,16 @@ public class MyGraph {
 			
 
 			for(GraphNode k : mg.getMyGraph().get(key)) {
-				System.out.print(k.data + " ");
+				System.out.print(k.getData() + " ");
 			}
 			System.out.println();
 			
 		}
 		
+		System.out.println("---------------------dfs-----------------------------");
+//		GraphNode g = new GraphNode(2);
+//		mg.dfsSearch(g);
+		GraphNode g2 = new GraphNode(1);
+		mg.dfsSearch(g2);
 	}
 }
