@@ -2,7 +2,9 @@ package com.cracking.datastructure;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 
 public class MyGraph {
 	private Map<GraphNode, ArrayList<GraphNode>> myGraph;
@@ -39,6 +41,7 @@ public class MyGraph {
 		myGraph.get(fNode).add(sNode);
 	}
 	
+	// dfs search
 	public void dfsSearch(GraphNode gn) {
 		if(gn == null) {
 			return;
@@ -52,6 +55,27 @@ public class MyGraph {
 				dfsSearch(g);
 			}
 		}
+	}
+	
+	//queue search
+	public void bfsSearch(GraphNode gn) {
+		Queue<GraphNode> queue = new LinkedList<GraphNode>();
+		
+		gn.setVisited(true);
+		queue.add(gn); // add to the end of queue
+		
+		while(!queue.isEmpty()) {
+			GraphNode g = queue.poll();
+			System.out.print(g.getData() + " ");
+			for(GraphNode n: this.getMyGraph().get(g)) {
+				if(!n.isVisited()) {
+					n.setVisited(true);
+					queue.add(n);
+				}
+			}
+			
+		}
+		
 	}
 	public static void main (String [] args) {
 		MyGraph mg = new MyGraph();
@@ -81,10 +105,14 @@ public class MyGraph {
 			
 		}
 		
-		System.out.println("---------------------dfs-----------------------------");
-//		GraphNode g = new GraphNode(2);
-//		mg.dfsSearch(g);
-		GraphNode g2 = new GraphNode(1);
-		mg.dfsSearch(g2);
+//		System.out.println("---------------------dfs-----------------------------");
+//		GraphNode g2 = new GraphNode(1);
+//		mg.dfsSearch(g2);
+
+		System.out.println();
+		System.out.println("---------------------bfs-----------------------------");
+		GraphNode g = new GraphNode(1);
+		mg.bfsSearch(g);
+		
 	}
 }
