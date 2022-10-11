@@ -77,6 +77,8 @@ public class MyGraph {
 		}
 		
 	}
+	
+	
 	public static void main (String [] args) {
 		MyGraph mg = new MyGraph();
 		mg.addGraphNode(1);
