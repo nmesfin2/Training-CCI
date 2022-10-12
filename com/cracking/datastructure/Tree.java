@@ -71,6 +71,21 @@ public class Tree {
 			System.out.print(n.num + " ");
 		}
 	}
+	
+	public  Node minimalTree(int [] sortedArray) {
+		return minimalTreeHelper(sortedArray, 0, sortedArray.length - 1);
+	}
+	
+	private Node minimalTreeHelper( int [] sortedArray, int firstIndex, int lastIndex) {
+		if(lastIndex < firstIndex) {
+			return null;
+		}
+		int middle = (firstIndex + lastIndex)/2;	
+		Node n = new Node(sortedArray[middle]);
+		n.left = minimalTreeHelper(sortedArray, firstIndex, middle - 1);
+		n.right = minimalTreeHelper(sortedArray, middle + 1, lastIndex);	
+		return n;
+	}
 	public static void main (String [] args) {
 		Tree t = new Tree(3);
 		t.add(t.getRoot(), 2);
@@ -93,5 +108,24 @@ public class Tree {
 		System.out.println();
 		System.out.println("post order ---- ");
 		t.postOrder(t.getRoot());
+		
+		
+		System.out.println();
+		System.out.println();
+		
+		
+		int [] n = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+		
+		Node n2 = t.minimalTree(n);
+		
+		System.out.print("minimum depth bst pre order ----  " );
+		t.preOrder(n2);
+		System.out.println();
+		System.out.print("minimum depth bst in order ----  " );
+		t.inOrder(n2);
+		System.out.println();
+		System.out.print("minimum depth bst post order ----  " );
+		t.postOrder(n2);
+		
 	}
 }
