@@ -1,5 +1,8 @@
 package com.cracking.datastructure;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 public class Tree {
 	private class Node{
 		private int num;
@@ -85,6 +88,29 @@ public class Tree {
 		n.left = minimalTreeHelper(sortedArray, firstIndex, middle - 1);
 		n.right = minimalTreeHelper(sortedArray, middle + 1, lastIndex);	
 		return n;
+	}
+	
+	public void ListOfNodeLinkedList(Node root) {
+		ArrayList<LinkedList<Node>> lists = new ArrayList<>();
+		ListOfNodeLinkedList(root, lists, 0);
+	}
+	
+	// go line by line and add it to the array of linkedlist nodes
+	private void ListOfNodeLinkedList(Node root, ArrayList<LinkedList<Node>> lists, int level) {
+		if(root == null) {
+			return;
+		}
+		
+		LinkedList<Node> list = null;
+		if(lists.size() == level) {
+			list =  new LinkedList<>();
+			lists.add(list);
+		}else {
+			list.get(level);
+		}
+		list.add(root);
+		ListOfNodeLinkedList(root.left, lists, level + 1);
+		ListOfNodeLinkedList(root.right, lists, level + 1);
 	}
 	public static void main (String [] args) {
 		Tree t = new Tree(3);
