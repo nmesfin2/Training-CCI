@@ -112,10 +112,39 @@ public class Tree {
 		ListOfNodeLinkedList(root.left, lists, level + 1);
 		ListOfNodeLinkedList(root.right, lists, level + 1);
 	}
+	
+	// check balanced
+	public boolean checkBalanced(Node n) {
+	
+		return checkBalancedHelper(n) != -99;
+	}
+	
+	// check balanced Helper
+	public int checkBalancedHelper(Node n) {
+		if(n == null) {
+			return -1;
+		}
+		
+		int left = checkBalancedHelper(n.left);
+		if(left == -99) {
+			return -99;
+		}
+		int right = checkBalancedHelper(n.right);
+		if(right == -99) {
+			return -99;
+		}
+		
+		if(Math.abs(left - right) > 1) {
+			return -99;
+		}else {
+			return Math.max(left, right) + 1;
+		}
+		
+	}
 	public static void main (String [] args) {
 		Tree t = new Tree(3);
 		t.add(t.getRoot(), 2);
-		t.add(t.getRoot(), 4);
+		t.add(t.getRoot(), 1);
 		t.add(t.getRoot(), 3);
 		t.add(t.getRoot(), 99);
 		t.add(t.getRoot(), 0);
@@ -152,6 +181,20 @@ public class Tree {
 		System.out.println();
 		System.out.print("minimum depth bst post order ----  " );
 		t.postOrder(n2);
+		
+		
+		Tree t2 = new Tree(3);
+		t2.add(t2.getRoot(), 1);
+		t2.add(t2.getRoot(), 5);
+		t2.add(t2.getRoot(), 6);
+		t2.add(t2.getRoot(), 7);
+		t2.add(t2.getRoot(), 8);
+		t2.add(t2.getRoot(), 9);
+		t2.add(t2.getRoot(), 10);
+		System.out.println();
+		System.out.print("check balanced ----  " );
+		System.out.println(t2.checkBalanced(t2.getRoot()));
+		System.out.println(t.checkBalanced(n2));
 		
 	}
 }
