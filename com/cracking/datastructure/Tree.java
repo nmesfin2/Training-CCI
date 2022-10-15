@@ -141,6 +141,32 @@ public class Tree {
 		}
 		
 	}
+	
+	// validate BST
+	Integer lastVal = null;
+	public boolean validateBST(Node n) {
+		
+		if(n == null ) {
+			return true;
+		}
+		
+		if(!validateBST(n.left)) {
+			return false;
+		}
+		if(lastVal != null && lastVal >= n.num) {
+			return false;
+		}
+		
+		lastVal = n.num;
+		
+		if(!validateBST(n.right)) {
+			return false;
+		}
+		return true;
+				
+		
+		
+	}
 	public static void main (String [] args) {
 		Tree t = new Tree(3);
 		t.add(t.getRoot(), 2);
@@ -196,5 +222,7 @@ public class Tree {
 		System.out.println(t2.checkBalanced(t2.getRoot()));
 		System.out.println(t.checkBalanced(n2));
 		
+		System.out.print("validate BST ----  " );
+		System.out.println(t2.validateBST(t2.getRoot()));
 	}
 }
