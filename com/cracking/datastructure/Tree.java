@@ -167,6 +167,21 @@ public class Tree {
 		
 		
 	}
+	
+	Node val = null;
+	public Node successor(Node n) {
+		if(n == null) {
+			return null;
+		}
+		
+		val =successor(n.left);
+		if(val.num == n.num) {
+			return val;
+		}
+		val = successor(n.right);
+		
+		return null;
+	}
 	public static void main (String [] args) {
 		Tree t = new Tree(3);
 		t.add(t.getRoot(), 2);

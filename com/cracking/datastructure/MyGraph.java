@@ -10,7 +10,6 @@ public class MyGraph {
 	private Map<GraphNode, ArrayList<GraphNode>> myGraph;
 	
 	public MyGraph() {
-		// TODO Auto-generated constructor stub
 		myGraph = new HashMap<>();
 	}
 	
@@ -107,9 +106,9 @@ public class MyGraph {
 			
 		}
 		
-//		System.out.println("---------------------dfs-----------------------------");
-//		GraphNode g2 = new GraphNode(1);
-//		mg.dfsSearch(g2);
+		System.out.println("---------------------dfs-----------------------------");
+		GraphNode g2 = new GraphNode(1);
+		mg.dfsSearch(g2);
 
 		System.out.println();
 		System.out.println("---------------------bfs-----------------------------");
