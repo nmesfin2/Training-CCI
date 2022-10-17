@@ -8,7 +8,7 @@ public class Tree {
 		private int num;
 		private Node left;
 		private Node right;
-		
+		private Node parent;
 		Node(int val){
 			this.num = val;
 			left = null;
@@ -174,13 +174,31 @@ public class Tree {
 			return null;
 		}
 		
-		val =successor(n.left);
-		if(val.num == n.num) {
-			return val;
+		// check if there is a right child. if there is return the left most child
+		if(n.right != null) {
+			return leftMostChild(n.right);
+		}else {
+			
+			Node q = n;
+			Node x = q.parent;
+			// go up until we are on the left 
+			while(x != null && x.left != q) {
+				q = x;
+				x = x.parent;
+			}
+			return x;
 		}
-		val = successor(n.right);
+	}
+	
+	private Node leftMostChild(Node n){
+		if(n == null) {
+			return null;
+		}
 		
-		return null;
+		while(n.left != null) {
+			n = n.left;
+		}
+		return n;
 	}
 	public static void main (String [] args) {
 		Tree t = new Tree(3);
