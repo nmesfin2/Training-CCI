@@ -1,6 +1,9 @@
 package com.cracking.datastructure;
 
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Queue;
 
 public class MyGraphMain {
@@ -98,6 +101,28 @@ public class MyGraphMain {
 	}
 	
 	
+	//build order 
+	public void buildOrder(ArrayList<String> projects, ArrayList<ArrayList<String>> dependencies) {
+		Map<String, Boolean> visitedTracker = new HashMap<>();
+		
+		for(int i = 0; i < projects.size(); i++) {
+			buildOrderHelp(projects.get(i), dependencies, visitedTracker);		
+		}
+	}
 	
+	
+	// dfs build
+	private void buildOrderHelp(String project, ArrayList<ArrayList<String>> dependencies, Map<String, Boolean> visitedTracker) {
+		if(project == null) {
+			return;
+		}
+		visitedTracker.put(project, true);
+		
+		for(ArrayList<String> pair: dependencies) {
+			if(pair.get(1) == project && visitedTracker.get(pair.get(0))) {
+				buildOrderHelp(pair.get(0), dependencies, visitedTracker);
+			}
+		}
+	}
 	
 }
