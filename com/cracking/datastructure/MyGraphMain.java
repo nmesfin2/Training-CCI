@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Queue;
+import java.util.Stack;
 
 public class MyGraphMain {
 	public static void main (String [] args) {
@@ -62,10 +63,44 @@ public class MyGraphMain {
 		
 		
 		// isConnected 
-		GraphNode a = new GraphNode(1);
-		GraphNode b = new GraphNode(2);
+//		GraphNode a = new GraphNode(1);
+//		GraphNode b = new GraphNode(2);
+//		
+//		System.out.println(isConnected(a, b, mg2));
 		
-		System.out.println(isConnected(a, b, mg2));
+		ArrayList<String> projects = new ArrayList<>();
+		projects.add("a");
+		projects.add("b");
+		projects.add("c");
+		projects.add("d");
+		projects.add("e");
+		projects.add("f");
+		
+		ArrayList<ArrayList<String>> dependencies = new ArrayList<>();
+		ArrayList<String> pair = new ArrayList<>();
+		pair.add(0, "a");
+		pair.add(1, "d");
+		dependencies.add(pair);
+		ArrayList<String> pair2 = new ArrayList<>();
+		pair2.add(0, "f");
+		pair2.add(1, "b");
+		dependencies.add(pair2);
+		ArrayList<String> pair3 = new ArrayList<>();
+		pair3.add(0, "b");
+		pair3.add(1, "d");
+		dependencies.add(pair3);
+		ArrayList<String> pair4 = new ArrayList<>();
+		pair4.add(0, "f");
+		pair4.add(1, "a");
+		dependencies.add(pair4);
+		ArrayList<String> pair5 = new ArrayList<>();
+		pair5.add(0, "d");
+		pair5.add(1, "c");
+		dependencies.add(pair5);
+		
+		System.out.println("--------------- build path ----------------------");
+		buildOrder(projects, dependencies);
+		
 	}
 	
 	public static boolean isConnected(GraphNode from, GraphNode to, MyGraph graph) {
@@ -102,27 +137,49 @@ public class MyGraphMain {
 	
 	
 	//build order 
-	public void buildOrder(ArrayList<String> projects, ArrayList<ArrayList<String>> dependencies) {
+	public static void buildOrder(ArrayList<String> projects, ArrayList<ArrayList<String>> dependencies) {
+		Stack<String> stack = new Stack<>();
 		Map<String, Boolean> visitedTracker = new HashMap<>();
-		
+		for(String project: projects) {
+			visitedTracker.put(project, false);
+		}
 		for(int i = 0; i < projects.size(); i++) {
-			buildOrderHelp(projects.get(i), dependencies, visitedTracker);		
+			stack = buildOrderHelp(projects.get(i), dependencies, visitedTracker, stack);		
+		}
+		
+		while(!stack.isEmpty()) {
+			System.out.print(stack.pop() + ", " );
+			
 		}
 	}
 	
+	// order Projects
+	Stack<String> orderProjects(ArrayList<String> projects){
+		Stack<String> stack = new Stack<>();
+		for(String project: projects) {
+			return null;
+		}
+		return null;
+	}
 	
 	// dfs build
-	private void buildOrderHelp(String project, ArrayList<ArrayList<String>> dependencies, Map<String, Boolean> visitedTracker) {
+	private static Stack buildOrderHelp(String project, ArrayList<ArrayList<String>> dependencies, Map<String, Boolean> visitedTracker, Stack <String>s) {
 		if(project == null) {
-			return;
+			return null;
 		}
 		visitedTracker.put(project, true);
 		
+		s.push(project);
 		for(ArrayList<String> pair: dependencies) {
-			if(pair.get(1) == project && visitedTracker.get(pair.get(0))) {
-				buildOrderHelp(pair.get(0), dependencies, visitedTracker);
+			if(pair.get(1) == project && !visitedTracker.get(pair.get(0)) && !visitedTracker.get(pair.get(1))) {
+				//System.out.print(project + ", + " );
+				 buildOrderHelp(pair.get(0), dependencies, visitedTracker, s);
+				
 			}
+			
 		}
+		//System.out.print(project + ", ");
+		return s;
 	}
 	
 }
