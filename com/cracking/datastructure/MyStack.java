@@ -84,7 +84,7 @@ public class MyStack<T extends Comparable<T>> implements Comparable<T> {
 
 	@Override
 	public int compareTo(T o) {
-		// TODO Auto-generated method stub
+
 		if(this.min.compareTo(o) == 1){
 			return 1;
 		}
