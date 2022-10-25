@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Queue;
 import java.util.Stack;
 
+import com.cci.interviewquestions.LInkeListQuestions.Node;
+
 public class MyGraphMain {
 	public static void main (String [] args) {
 		MyGraph mg = new MyGraph();
@@ -135,7 +137,20 @@ public class MyGraphMain {
 		return false;
 	}
 	
+	//first common ancestor
+	public void firstCommonAncestor(Node first, Node second) {
+		
+	}
 	
+	private void firstNode(Node first, Node root) {
+		if(first == root) {
+			return;
+		}else {
+			
+		}
+		
+		
+	}
 	//build order 
 	public static void buildOrder(ArrayList<String> projects, ArrayList<ArrayList<String>> dependencies) {
 		Stack<String> stack = new Stack<>();
