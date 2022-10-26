@@ -200,6 +200,44 @@ public class Tree {
 		}
 		return n;
 	}
+	
+	//first common anestor
+	public Node firstCommonAncestor(Node root, Node first, Node second) {
+		// check if one of the node doesnt exist
+		if(!covers(root, first) || !covers(root, second)) {
+			return null;
+		}
+		
+		return firstCommonAncestorHelper(root, first, second);
+		
+	}
+	
+	private Node firstCommonAncestorHelper(Node root, Node first, Node second) {
+		if(first == null || second == null || root == null) {
+			return root;
+		}
+		
+		boolean firstIsOnLeft = covers(root.left, first);
+		boolean secondIsOnLeft = covers(root.right, second);
+		
+		if(firstIsOnLeft != secondIsOnLeft) {
+			return root;
+		}
+		
+		Node childSide = firstIsOnLeft ? root.left : root.right;
+		return firstCommonAncestorHelper(childSide, first, second);
+	}
+	
+	private boolean covers(Node root, Node node) {
+		if(root == null) {
+			return false;
+		}
+		if(root == node) {
+			return true;
+		}
+		return covers(root.left, node) || covers(root.right, node);
+	}
+	
 	public static void main (String [] args) {
 		Tree t = new Tree(3);
 		t.add(t.getRoot(), 2);

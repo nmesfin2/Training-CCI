@@ -137,20 +137,7 @@ public class MyGraphMain {
 		return false;
 	}
 	
-	//first common ancestor
-	public void firstCommonAncestor(Node first, Node second) {
-		
-	}
-	
-	private void firstNode(Node first, Node root) {
-		if(first == root) {
-			return;
-		}else {
-			
-		}
-		
-		
-	}
+
 	//build order 
 	public static void buildOrder(ArrayList<String> projects, ArrayList<ArrayList<String>> dependencies) {
 		Stack<String> stack = new Stack<>();
